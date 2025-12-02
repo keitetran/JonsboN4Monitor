@@ -1,5 +1,7 @@
 # Jonsbo N4 Screen
 
+[English](README.md) | [Tiếng Việt](README.vi.md)
+
 A custom display system for Jonsbo N4 PC case, built with ESP32-P4 and LVGL, designed to monitor and display system information in real-time.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
