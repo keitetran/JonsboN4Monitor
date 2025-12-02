@@ -1,0 +1,18 @@
+.vscode
+.cursor
+.svn
+.idea
+.cache
+build/
+managed_components/
+generated/
+docs/
+esp-hosted/
+
+# ESP-IDF generated files
+sdkconfig.old
+sdkconfig.backup
+
+# Local configuration with sensitive data (WiFi password, etc.)
+# Users should copy sdkconfig.example to sdkconfig and configure their own settings
+sdkconfig

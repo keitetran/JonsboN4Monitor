@@ -1,0 +1,6 @@
+SortIncludes: false
+ColumnLimit: 0
+BreakBeforeBinaryOperators: None
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: true
+SeparateDefinitionBlocks: Always

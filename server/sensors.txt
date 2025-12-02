@@ -1,0 +1,68 @@
+label_storage_1: 25.2%
+label_storage_total_1: 874.5 Gb
+label_storage_2: 9.6%
+label_storage_total_2: 7.0 Tb
+label_storage_3: 8.2%
+label_storage_total_3: 96.9 Gb
+label_storage_4: 0%
+label_storage_total_4: 0 Gb
+label_system_status: Normal
+label_thermal_status: N/A
+label_upgrade_available: Available
+label_power_status: Normal
+label_system_fan_status: Normal
+label_version: DSM 7.3-81180
+label_ping_total: 17.8 ms
+label_fan1_value: N/A
+label_fan2_value: 728 RPM
+label_fan3_value: 887 RPM
+label_fan4_value: N/A
+label_fan5_value: N/A
+label_fan6_value: N/A
+label_fan7_value: N/A
+label_cpu_usage: 2.20 GHz
+label_cpu_usage_per: 1%
+bar_cpu_usage: 1
+label_ram_usage: 9.5 GB / 31.1 GB
+label_ram_usage_per: 30%
+bar_ram_usage: 30
+label_gpu_usage: 139 MHz
+label_gpu_usage_per: 0%
+label_gpu_fan_speed: 34%
+bar_gpu_usage: 0
+label_temp_drive0: 0°C
+label_temp_drive1: 0°C
+label_temp_drive2: 40°C
+label_temp_drive3: 41°C
+label_temp_drive4: 40°C
+label_temp_drive5: 39°C
+label_temp_nvme1: 52°C
+label_temp_nvme2: 30°C
+label_temp_nvme3: 41°C
+label_temp_nvme4: 53°C
+label_temp_nvme5: 28°C
+label_status_drive0: 1
+label_status_drive1: 1
+label_status_drive2: 1
+label_status_drive3: 1
+label_status_drive4: 1
+label_status_drive5: 1
+label_status_nvme1: 1
+label_status_nvme2: 1
+label_status_nvme3: 1
+label_status_nvme4: 1
+label_status_nvme5: 1
+label_temp_motherboard: 40°C
+label_temp_chipset: 43°C
+label_temp_cpu: 41°C
+label_temp_gpu: 41°C
+label_temp_ram: 31°C
+label_hostname: SA6400
+label_account: root - 192.168.1.3
+label_download_total: 5.4 Kbps
+label_upload_total: 7.6 Kbps
+arc_download_total: 0
+arc_upload_total: 0
+label_disk_iops: 491
+label_disk_read: 0.95 MB/s
+label_disk_write: 6.33 MB/s

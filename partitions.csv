@@ -1,0 +1,11 @@
+# Name,   Type, SubType, Offset,  Size, Flags
+# Note: if you change the phy_init or app partition offset, make sure to change the offset in Kconfig.projbuild
+# Partition table offset increased to 0x10000 to accommodate larger bootloader (0x6430 bytes)
+# OTA partitions: ota_0 và ota_1 cho phép update firmware qua mạng
+nvs,      data, nvs,     0x11000, 0x6000,
+phy_init, data, phy,     0x17000, 0x1000,
+otadata,  data, ota,     ,        0x2000,
+ota_0,    app,  ota_0,   ,        3M,
+ota_1,    app,  ota_1,   ,        3M,
+storage,  data, spiffs,  ,        512K,
+

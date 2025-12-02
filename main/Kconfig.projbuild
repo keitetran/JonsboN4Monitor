@@ -1,0 +1,201 @@
+menu "JonsboN4Monitor Configuration"
+
+    menu "Display"
+        config EXAMPLE_LVGL_PORT_TASK_MAX_DELAY_MS
+            int "LVGL timer task maximum delay (ms)"
+            default 500
+            range 2 2000
+
+        config EXAMPLE_LVGL_PORT_TASK_MIN_DELAY_MS
+            int "LVGL timer task minimum delay (ms)"
+            default 5
+            range 1 100
+
+        config EXAMPLE_LVGL_PORT_TASK_PRIORITY
+            int "LVGL task priority"
+            default 4
+
+        config EXAMPLE_LVGL_PORT_TASK_STACK_SIZE_KB
+            int "LVGL task stack size (KB)"
+            default 6
+
+        config EXAMPLE_LVGL_PORT_TASK_CORE
+            int "LVGL timer task core"
+            default -1
+            range -1 1
+
+        config EXAMPLE_LVGL_PORT_TICK
+            int "LVGL tick period"
+            default 2
+            range 1 100
+
+        config EXAMPLE_LVGL_PORT_AVOID_TEAR_ENABLE
+            bool "Avoid tearing effect"
+            default n
+
+        choice
+            prompt "Select Avoid Tearing Mode"
+            depends on EXAMPLE_LVGL_PORT_AVOID_TEAR_ENABLE
+            default EXAMPLE_LVGL_PORT_AVOID_TEAR_MODE_3
+            config EXAMPLE_LVGL_PORT_AVOID_TEAR_MODE_1
+                bool "Mode 1: LCD double-buffer & LVGL full-refresh"
+            config EXAMPLE_LVGL_PORT_AVOID_TEAR_MODE_2
+                bool "Mode 2: LCD triple-buffer & LVGL full-refresh"
+            config EXAMPLE_LVGL_PORT_AVOID_TEAR_MODE_3
+                bool "Mode 3: LCD double-buffer & LVGL direct-mode"
+        endchoice
+
+        config EXAMPLE_LVGL_PORT_AVOID_TEAR_MODE
+            depends on EXAMPLE_LVGL_PORT_AVOID_TEAR_ENABLE
+            int
+            default 1 if EXAMPLE_LVGL_PORT_AVOID_TEAR_MODE_1
+            default 2 if EXAMPLE_LVGL_PORT_AVOID_TEAR_MODE_2
+            default 3 if EXAMPLE_LVGL_PORT_AVOID_TEAR_MODE_3
+
+        choice
+            prompt "Select rotation"
+            depends on EXAMPLE_LVGL_PORT_AVOID_TEAR_ENABLE
+            default EXAMPLE_LVGL_PORT_ROTATION_0
+            config EXAMPLE_LVGL_PORT_ROTATION_0
+                bool "Rotation 0"
+            config EXAMPLE_LVGL_PORT_ROTATION_90
+                bool "Rotation 90"
+            config EXAMPLE_LVGL_PORT_ROTATION_180
+                bool "Rotation 180"
+            config EXAMPLE_LVGL_PORT_ROTATION_270
+                bool "Rotation 270"
+        endchoice
+
+        config EXAMPLE_LVGL_PORT_PPA_ROTATION_ENABLE
+            bool "Enable PPA rotation"
+            depends on EXAMPLE_LVGL_PORT_AVOID_TEAR_ENABLE && IDF_TARGET_ESP32P4 && !EXAMPLE_LVGL_PORT_ROTATION_0
+            default n
+
+        config EXAMPLE_LVGL_PORT_ROTATION_DEGREE
+            int
+            default 0 if EXAMPLE_LVGL_PORT_ROTATION_0
+            default 90 if EXAMPLE_LVGL_PORT_ROTATION_90
+            default 180 if EXAMPLE_LVGL_PORT_ROTATION_180
+            default 270 if EXAMPLE_LVGL_PORT_ROTATION_270
+
+        choice
+            prompt "Select LVGL buffer memory capability"
+            depends on !EXAMPLE_LVGL_PORT_AVOID_TEAR_ENABLE
+            default EXAMPLE_LVGL_PORT_BUF_PSRAM
+            config EXAMPLE_LVGL_PORT_BUF_PSRAM
+                bool "PSRAM memory"
+            config EXAMPLE_LVGL_PORT_BUF_INTERNAL
+                bool "Internal SRAM"
+        endchoice
+
+        config EXAMPLE_LVGL_PORT_BUF_HEIGHT
+            int "LVGL buffer height"
+            depends on !EXAMPLE_LVGL_PORT_AVOID_TEAR_ENABLE
+            default 100
+            range 1 800
+    endmenu
+
+    menu "WiFi"
+        config WIFI_ENABLE
+            bool "Enable WiFi connection"
+            default n
+            help
+                Enable WiFi connection via esp_hosted (ESP32-P4 requires WiFi co-processor).
+                If disabled, WiFi will not be initialized.
+
+        config WIFI_SSID
+            string "WiFi SSID"
+            default ""
+            depends on WIFI_ENABLE
+            help
+                SSID (network name) for the WiFi connection.
+
+        config WIFI_PASSWORD
+            string "WiFi Password"
+            default ""
+            depends on WIFI_ENABLE
+            help
+                WiFi password (WPA or WPA2) for the network.
+
+        config WIFI_MAXIMUM_RETRY
+            int "Maximum WiFi connection retry"
+            default 5
+            range 1 20
+            depends on WIFI_ENABLE
+            help
+                Maximum number of retries when connecting to WiFi AP.
+    endmenu
+
+    menu "MQTT"
+        config MQTT_ENABLE
+            bool "Enable MQTT connection"
+            default n
+            help
+                Enable MQTT client connection.
+                If disabled, MQTT will not be initialized.
+
+        config MQTT_BROKER_IP
+            string "MQTT Broker IP address"
+            default "192.168.1.14"
+            depends on MQTT_ENABLE
+            help
+                IP address of the MQTT broker server.
+
+        config MQTT_BROKER_PORT
+            int "MQTT Broker port"
+            default 1883
+            range 1 65535
+            depends on MQTT_ENABLE
+            help
+                Port number of the MQTT broker server.
+
+        config MQTT_CLIENT_ID
+            string "MQTT Client ID"
+            default "HomeLabMonitor"
+            depends on MQTT_ENABLE
+            help
+                Client ID used for MQTT connection.
+
+        config MQTT_USERNAME
+            string "MQTT Username"
+            default ""
+            depends on MQTT_ENABLE
+            help
+                Username for MQTT authentication (leave empty if not required).
+
+        config MQTT_PASSWORD
+            string "MQTT Password"
+            default ""
+            depends on MQTT_ENABLE
+            help
+                Password for MQTT authentication (leave empty if not required).
+    endmenu
+
+    menu "OTA Update"
+        config OTA_ENABLE
+            bool "Enable OTA (Over-The-Air) update"
+            default n
+            depends on WIFI_ENABLE
+            help
+                Enable OTA update functionality.
+                Requires WiFi to be enabled.
+
+        config OTA_UPDATE_URL
+            string "OTA Update Server URL"
+            default "http://192.168.1.14:8888"
+            depends on OTA_ENABLE
+            help
+                Base URL for OTA update server.
+                Should point to the server running read_sensor.py with OTA server enabled.
+                Example: http://192.168.1.14:8888
+
+        config OTA_AUTO_CHECK
+            bool "Auto-check for updates on startup"
+            default n
+            depends on OTA_ENABLE
+            help
+                Automatically check for updates when WiFi connects.
+    endmenu
+
+endmenu
+
